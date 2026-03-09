@@ -1,0 +1,78 @@
+.section {
+  background: var(--ink);
+  padding: 140px 52px;
+}
+
+.sectionLabel {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 80px;
+}
+
+.header {
+  margin-bottom: 60px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.92;
+  color: var(--cream);
+  margin: 0;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 60px 220px 1fr 120px;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  cursor: default;
+}
+
+.step:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.num {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.8vw, 36px);
+  color: var(--cream);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.35);
+  margin: 0;
+}
+
+.time {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  text-transform: uppercase;
+  text-align: right;
+}

@@ -1,0 +1,117 @@
+.page {
+  padding-top: 64px;
+}
+
+.hero {
+  background: var(--cream);
+  padding: 100px 52px 80px;
+  border-bottom: 1px solid rgba(17,17,17,0.06);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 16px 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.9;
+  color: var(--ink);
+  margin: 0 0 28px 0;
+}
+
+.titleRed { color: var(--red); }
+
+/* Sección manifiesto */
+.manifesto {
+  background: var(--ink);
+  padding: 100px 52px;
+}
+
+.manifestoInner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.manifestoLabel {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin: 0 0 32px 0;
+}
+
+.manifestoText {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.15;
+  color: var(--cream);
+  margin: 0;
+}
+
+.manifestoRed { color: var(--red); }
+
+/* Valores */
+.values {
+  background: var(--cream);
+  padding: 100px 52px;
+}
+
+.valuesTitle {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.92;
+  color: var(--ink);
+  margin: 0 0 56px 0;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  border: 1.5px solid rgba(17,17,17,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.valueCard {
+  padding: 40px;
+  border-right: 1.5px solid rgba(17,17,17,0.08);
+  border-bottom: 1.5px solid rgba(17,17,17,0.08);
+  transition: background 0.25s;
+}
+
+.valueCard:nth-child(2n) { border-right: none; }
+.valueCard:nth-child(n+3) { border-bottom: none; }
+
+.valueCard:hover { background: rgba(17,17,17,0.02); }
+
+.valueNum {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  margin: 0 0 16px 0;
+}
+
+.valueName {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--ink);
+  margin: 0 0 10px 0;
+}
+
+.valueDesc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(17,17,17,0.5);
+  margin: 0;
+}
