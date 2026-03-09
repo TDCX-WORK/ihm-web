@@ -1,32 +1,31 @@
-.dot {
+.dot,
+.ring,
+.label {
   position: fixed;
-  top: -4px;
-  left: -4px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ink);
+  top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
+  translate: -50% -50%;
+}
+
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red);
 }
 
 .ring {
-  position: fixed;
-  top: -20px;
-  left: -20px;
-  width: 40px;
-  height: 40px;
+  width: 34px; height: 34px;
   border-radius: 50%;
-  border: 1px solid rgba(17, 17, 17, 0.35);
-  pointer-events: none;
-  z-index: 9998;
-  mix-blend-mode: difference;
+  border: 1px solid rgba(240,236,228,0.22);
 }
 
-/* Ocultar cursor nativo en desktop */
-@media (pointer: fine) {
-  * {
-    cursor: none !important;
-  }
+.label {
+  font-family: var(--ff-body);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  white-space: nowrap;
 }

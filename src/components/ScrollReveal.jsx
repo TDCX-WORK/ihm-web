@@ -1,44 +1,30 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-/**
- * ScrollReveal — wrapper que anima cualquier hijo al entrar en viewport.
- *
- * Props:
- *   children    — contenido a animar
- *   className   — clase CSS opcional
- *   delay       — delay en segundos, default 0
- *   duration    — duración, default 0.7
- *   y           — desplazamiento vertical inicial, default 40
- *   once        — solo una vez, default true
- *   style       — estilos inline adicionales
- */
 export default function ScrollReveal({
   children,
+  as = 'div',
   className = '',
   delay = 0,
-  duration = 0.7,
-  y = 40,
+  duration = 0.8,
+  y = 32,
   once = true,
   style = {},
 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once, margin: '0px 0px -80px 0px' })
+  const Tag = motion[as] || motion.div
 
   return (
-    <motion.div
+    <Tag
       ref={ref}
       className={className}
       style={style}
       initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
+    </Tag>
   )
 }

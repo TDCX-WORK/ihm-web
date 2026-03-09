@@ -1,74 +1,113 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import SplitText   from '../components/SplitText'
+import DotGrid     from '../components/DotGrid'
 import ScrollReveal from '../components/ScrollReveal'
+import LightOrb    from '../components/LightOrb'
 import s from './Services.module.css'
 
 const services = [
-  { id: '01', name: 'Social Media',  desc: 'Estrategia, contenido y gestión de redes que convierte seguidores en clientes reales.' },
-  { id: '02', name: 'Paid Media',    desc: 'Campañas en Meta y Google optimizadas para que cada euro trabaje. Sin desperdicio.' },
-  { id: '03', name: 'Copywriting',   desc: 'Textos que venden sin que parezca que venden. La diferencia siempre está en las palabras.' },
-  { id: '04', name: 'Diseño',        desc: 'Identidad visual, portadas, flyers y piezas que paran el scroll.' },
-  { id: '05', name: 'Web',           desc: 'Webs rápidas, bonitas y que convierten. Sin código raro ni precios de agencia grande.' },
-  { id: '06', name: 'Audiovisual',   desc: 'Reels, vídeos y contenido que funciona en el feed y en la mente.' },
-  { id: '07', name: 'IA',            desc: 'Automatizaciones, herramientas y flujos con IA aplicada a tu negocio de verdad.' },
+  { n: '01', name: 'Social Media',  tag: 'Orgánico',    desc: 'Estrategia, contenido y gestión que convierte seguidores en clientes. Cada post tiene un propósito.' },
+  { n: '02', name: 'Paid Media',    tag: 'Performance', desc: 'Campañas en Meta y Google con ROI medible desde el día uno. Sin gasto en vano.' },
+  { n: '03', name: 'Copywriting',   tag: 'Conversión',  desc: 'Textos que venden sin que lo parezca. La diferencia siempre está en las palabras correctas.' },
+  { n: '04', name: 'Diseño',        tag: 'Visual',      desc: 'Identidad, portadas y piezas que paran el scroll y graban la marca en la memoria.' },
+  { n: '05', name: 'Web',           tag: 'Tecnología',  desc: 'Webs rápidas, bonitas y que convierten. Sin código raro ni facturas de agencia grande.' },
+  { n: '06', name: 'Audiovisual',   tag: 'Vídeo',       desc: 'Reels, vídeos y contenido que funciona en el feed y en la mente del cliente.' },
+  { n: '07', name: 'IA',            tag: 'Futuro',      desc: 'Automatizaciones y flujos con IA aplicada de verdad a tu negocio. No al hype vacío.' },
 ]
 
 export default function Services() {
   const [active, setActive] = useState(null)
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const lineScale = useTransform(scrollYProgress, [0.05, 0.5], [0, 1])
+  const lineX     = useTransform(scrollYProgress, [0.05, 0.5], ['0%', '100%'])
 
   return (
-    <section className={s.section}>
-      <div className={s.sectionLabel}>
-        <span>© Lo que hacemos</span>
-        <span>(WDX® — 02)</span>
-      </div>
+    <section ref={ref} id="services" className={s.section}>
+      <DotGrid maskShape="90% 90%" />
+      <LightOrb x="88%" y="18%" color="var(--gold)" size={400} opacity={0.05} />
 
-      <div className={s.header}>
-        <SplitText
-          text="Servicios que funcionan."
-          tag="h2"
-          className={s.title}
-          stagger={0.03}
-          duration={0.7}
+      <ScrollReveal className={s.label}>
+        <span>© Lo que hacemos</span>
+        <span>(07 servicios)</span>
+      </ScrollReveal>
+
+      <SplitText
+        text="Servicios que funcionan."
+        tag="h2"
+        className={s.title}
+        stagger={0.04}
+      />
+
+      {/* Glow line that draws itself on scroll */}
+      <div className={s.glowTrack}>
+        <motion.div
+          className={s.glowLine}
+          style={{ scaleX: lineScale, transformOrigin: 'left center' }}
         />
-        <ScrollReveal delay={0.2} y={20}>
-          <p className={s.count}>(0{services.length})</p>
-        </ScrollReveal>
+        <motion.div
+          className={s.glowDot}
+          style={{ left: lineX }}
+        />
       </div>
 
       <div className={s.list}>
         {services.map((sv, i) => (
-          <ScrollReveal key={sv.id} delay={i * 0.05} y={20}>
-            <div
-              className={`${s.item} ${active === sv.id ? s.itemActive : ''}`}
-              onMouseEnter={() => setActive(sv.id)}
-              onMouseLeave={() => setActive(null)}
-            >
-              <span className={s.num}>{sv.id}</span>
-              <h3 className={s.name}>{sv.name}</h3>
+          <motion.div
+            key={sv.n}
+            className={`${s.item} ${active === sv.n ? s.itemActive : ''}`}
+            onHoverStart={() => setActive(sv.n)}
+            onHoverEnd={() => setActive(null)}
+            onClick={() => setActive(active === sv.n ? null : sv.n)}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '0px 0px -50px 0px' }}
+            transition={{ duration: 0.6, delay: i * 0.055, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Hover bg bleed */}
+            <motion.div
+              className={s.hoverBg}
+              animate={{ opacity: active === sv.n ? 1 : 0 }}
+            />
+
+            <span className={s.num}>{sv.n}</span>
+
+            <div className={s.nameWrap}>
+              <motion.h3
+                className={s.name}
+                animate={{ x: active === sv.n ? 8 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {sv.name}
+              </motion.h3>
               <AnimatePresence>
-                {active === sv.id && (
+                {active === sv.n && (
                   <motion.p
                     className={s.desc}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.25 }}
+                    initial={{ opacity: 0, height: 0, y: -6 }}
+                    animate={{ opacity: 1, height: 'auto', y: 0 }}
+                    exit={{ opacity: 0, height: 0, y: -6 }}
+                    transition={{ duration: 0.24 }}
                   >
                     {sv.desc}
                   </motion.p>
                 )}
               </AnimatePresence>
-              <motion.span
-                className={s.arrow}
-                animate={{ x: active === sv.id ? 6 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                →
-              </motion.span>
             </div>
-          </ScrollReveal>
+
+            <span className={`${s.tag} ${active === sv.n ? s.tagActive : ''}`}>
+              {sv.tag}
+            </span>
+
+            <motion.span
+              className={s.arrow}
+              animate={{ x: active === sv.n ? 6 : 0, opacity: active === sv.n ? 1 : 0.2 }}
+              transition={{ duration: 0.2 }}
+            >
+              →
+            </motion.span>
+          </motion.div>
         ))}
       </div>
     </section>

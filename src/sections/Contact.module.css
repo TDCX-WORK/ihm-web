@@ -1,192 +1,266 @@
+/* ─── Section ────────────────────────────────────────────────── */
 .section {
-  background: var(--ink);
-  padding: 120px 52px;
+  position: relative;
+  padding: 140px 80px 80px;
+  background: var(--black);
+  overflow: hidden;
+  overflow-x: clip;
 }
 
-.inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.16em;
+/* ─── Header ─────────────────────────────────────────────────── */
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin: 0 0 14px 0;
+  color: rgba(240,236,228,0.25);
+  margin-bottom: 28px;
 }
 
 .title {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 6vw, 80px);
-  line-height: 0.92;
+  font-family: var(--ff-display);
+  font-size: clamp(56px, 8vw, 120px);
+  line-height: 0.88;
   color: var(--cream);
-  margin: 0 0 24px 0;
+  margin-bottom: 24px;
 }
 
-.titleRed { color: var(--red); }
+.titleDim { color: rgba(240,236,228,0.18); }
 
-.desc {
-  font-family: var(--font-body);
-  font-size: 15px;
+.sub {
+  font-family: var(--ff-body);
+  font-size: 16px;
   line-height: 1.75;
-  color: rgba(255,255,255,0.45);
-  margin: 0 0 48px 0;
-  max-width: 380px;
+  color: rgba(240,236,228,0.38);
+  font-weight: 300;
+  margin-bottom: 72px;
+  max-width: 480px;
 }
 
-.contactList {
+/* ─── Cards grid ─────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 80px;
+  align-items: stretch;
+}
+
+/* ─── Card ───────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  min-height: 340px;
+  /* border just visible enough */
+  border: 1px solid rgba(240,236,228,0.07);
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(240,236,228,0.13); }
+
+/* Full-card bg: the gradient that peeks at edges */
+.cardBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-.contactItem {
+/* Dark inner panel with diagonal clip at top-right corner */
+.cardInner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  padding: 28px 28px 28px;
+  /* Diagonal cut: clip-path removes top-right triangle */
+  background: rgba(10,9,8,0.93);
+  clip-path: polygon(0 0, calc(100% - 56px) 0, 100% 56px, 100% 100%, 0 100%);
+  margin: 6px 6px 6px 6px;
+  border-radius: 15px 15px 15px 15px;
 }
 
-.contactIcon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+/* ─── Card top ───────────────────────────────────────────────── */
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: auto;
+  padding-bottom: 32px;
+}
+
+.badge {
+  font-family: var(--ff-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.iconWrap {
+  width: 36px; height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
   flex-shrink: 0;
 }
 
-.contactText {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: rgba(255,255,255,0.65);
-  margin: 0;
+.arrowIcon {
+  font-size: 15px;
+  font-family: var(--ff-body);
 }
 
-.contactLink {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: rgba(255,255,255,0.65);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.contactLink:hover {
+/* ─── Title ──────────────────────────────────────────────────── */
+.cardTitle {
+  font-family: var(--ff-display);
+  font-size: clamp(34px, 3vw, 48px);
+  line-height: 0.92;
   color: var(--cream);
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-/* Formulario */
-.form {
+.titleLine { display: block; }
+
+/* ─── Card bottom ────────────────────────────────────────────── */
+.cardBottom {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border-top: 1px solid rgba(240,236,228,0.07);
+  padding-top: 20px;
+  margin-top: auto;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.cardDesc {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(240,236,228,0.38);
+  font-weight: 300;
 }
 
-.field {
+.cardCta {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.label2 {
-  font-family: var(--font-body);
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ff-body);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  font-weight: 500;
 }
 
-.input,
-.textarea,
-.select {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 14px 16px;
-  font-family: var(--font-body);
+.ctaArrow {
+  margin-left: auto;
   font-size: 14px;
-  color: var(--cream);
-  outline: none;
-  transition: border-color 0.2s;
+  transition: transform 0.22s;
+}
+.card:hover .ctaArrow { transform: translateX(4px); }
+
+/* ─── Accent line at bottom ──────────────────────────────────── */
+.cardLine {
+  position: relative;
+  z-index: 2;
+  height: 2px;
   width: 100%;
-  box-sizing: border-box;
+  opacity: 0.55;
+  flex-shrink: 0;
 }
 
-.input::placeholder,
-.textarea::placeholder {
-  color: rgba(255,255,255,0.2);
+/* ─── Bottom bar ─────────────────────────────────────────────── */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
 }
 
-.input:focus,
-.textarea:focus,
-.select:focus {
-  border-color: rgba(255,255,255,0.3);
+.bottomLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.select option {
-  background: #222;
+.bottomLogo {
+  font-family: var(--ff-display);
+  font-size: 22px;
   color: var(--cream);
+  letter-spacing: 0.04em;
 }
+.bottomLogo span { color: var(--red); }
 
-.textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.submit {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  border-radius: 999px;
-  border: none;
-  background: var(--red);
-  color: #fff;
-  font-family: var(--font-body);
+.bottomTagline {
+  font-family: var(--ff-body);
   font-size: 12px;
-  letter-spacing: 0.13em;
+  color: rgba(240,236,228,0.25);
+}
+
+.bottomRight {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.waBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ff-body);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #25D366;
+  border: 1px solid rgba(37,211,102,0.25);
+  padding: 10px 18px;
+  border-radius: 999px;
+  transition: background 0.22s, border-color 0.22s;
+  text-decoration: none;
+}
+.waBtn:hover {
+  background: rgba(37,211,102,0.07);
+  border-color: rgba(37,211,102,0.45);
+}
+
+.bottomCity {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity 0.22s;
-  margin-top: 8px;
+  color: rgba(240,236,228,0.18);
 }
 
-.submit:hover {
-  opacity: 0.88;
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .cardTitle { font-size: 36px; }
 }
 
-.success {
-  text-align: center;
-  padding: 40px 0;
+@media (max-width: 1024px) {
+  .section { padding: 100px 40px 60px; }
+  .cards { grid-template-columns: 1fr; max-width: 520px; }
 }
 
-.successIcon {
-  font-size: 40px;
-  margin-bottom: 16px;
-}
-
-.successTitle {
-  font-family: var(--font-display);
-  font-size: 32px;
-  color: var(--cream);
-  margin: 0 0 10px 0;
-}
-
-.successText {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: rgba(255,255,255,0.45);
-  margin: 0;
+@media (max-width: 768px) {
+  .section { padding: 72px 16px 56px; }
+  .cards { max-width: 100%; gap: 14px; }
+  .card { min-width: 0; }
+  .cardInner { clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%); }
+  .cardTitle { font-size: clamp(28px, 9vw, 40px); }
+  .bottomBar { flex-direction: column; align-items: flex-start; gap: 20px; padding: 0 4px; }
+  .bottomRight { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .bottomCity { display: none; }
 }

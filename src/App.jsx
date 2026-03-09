@@ -1,28 +1,39 @@
-import { Routes, Route } from 'react-router-dom'
-import Navbar    from './components/Navbar'
-import Footer    from './components/Footer'
-import Cursor    from './components/Cursor'
-import Home      from './pages/Home'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import Cursor   from './components/Cursor'
+import Navbar   from './components/Navbar'
+import Footer   from './components/Footer'
+import PageTransition from './components/PageTransition'
+import Home     from './pages/Home'
 import Servicios from './pages/Servicios'
-import Nosotros  from './pages/Nosotros'
-import Contacto  from './pages/Contacto'
-import useLenis  from './hooks/useLenis'
+import Nosotros from './pages/Nosotros'
+import Contacto from './pages/Contacto'
+import useLenis from './hooks/useLenis'
 
 export default function App() {
   useLenis()
+  const location = useLocation()
 
   return (
     <>
       <Cursor />
       <Navbar />
-      <main>
-        <Routes>
-          <Route path="/"           element={<Home />} />
-          <Route path="/servicios"  element={<Servicios />} />
-          <Route path="/nosotros"   element={<Nosotros />} />
-          <Route path="/contacto"   element={<Contacto />} />
+      <AnimatePresence mode="wait" initial={false}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={
+            <PageTransition><Home /></PageTransition>
+          } />
+          <Route path="/servicios" element={
+            <PageTransition><Servicios /></PageTransition>
+          } />
+          <Route path="/nosotros" element={
+            <PageTransition><Nosotros /></PageTransition>
+          } />
+          <Route path="/contacto" element={
+            <PageTransition><Contacto /></PageTransition>
+          } />
         </Routes>
-      </main>
+      </AnimatePresence>
       <Footer />
     </>
   )

@@ -1,0 +1,160 @@
+/* ── SECCIÓN NEGRA ─────────────────────────────────────────── */
+.section {
+  background: var(--deep);
+  padding: 56px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  border-radius: 48px;
+  margin: 0 8px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 36px;
+  padding: 0 48px;
+}
+.headerLine {
+  flex: 1; max-width: 100px;
+  height: 1px;
+  background: var(--border);
+}
+.headerText {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.28);
+  white-space: nowrap;
+}
+.headerCount {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  border: 1px solid rgba(232,24,12,0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ── Track wrapper ────────────────────────────────────────── */
+.trackWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blur+fade masks */
+.maskLeft,
+.maskRight {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 200px;
+  z-index: 2;
+  pointer-events: none;
+}
+.maskLeft {
+  left: 0;
+  background: linear-gradient(90deg,
+    var(--deep) 0%,
+    var(--deep) 18%,
+    rgba(17,16,16,0.85) 42%,
+    transparent 100%
+  );
+}
+.maskRight {
+  right: 0;
+  background: linear-gradient(270deg,
+    var(--deep) 0%,
+    var(--deep) 18%,
+    rgba(17,16,16,0.85) 42%,
+    transparent 100%
+  );
+}
+
+/* ── Keyframe local (garantizado) ─────────────────────────── */
+@keyframes slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Infinite scroll track */
+.track {
+  display: flex;
+  width: max-content;
+  align-items: stretch;
+  gap: 12px;
+  padding: 4px 12px;
+  /* keyframe local para que no dependa de globals.css */
+  animation: slide 44s linear infinite;
+}
+.track:hover { animation-play-state: paused; }
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card { flex-shrink: 0; width: 172px; }
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 20px 14px;
+  height: 108px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: background 0.28s, border-color 0.28s, transform 0.28s;
+}
+.cardInner:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.13);
+  transform: translateY(-3px);
+}
+
+.cardLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.svg {
+  height: 34px;
+  width: auto;
+  max-width: 128px;
+  display: block;
+}
+
+.logoImg {
+  height: 34px;
+  width: auto;
+  max-width: 128px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.65;
+}
+
+.cardLabel {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  color: rgba(240,236,228,0.22);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .section { padding: 44px 0;
+    border-radius: 28px; margin: 0 6px; }
+  .header  { padding: 0 20px; gap: 10px; }
+  .headerLine { display: none; }
+  .maskLeft, .maskRight { width: 70px; }
+  .card { width: 144px; }
+  .cardInner { height: 92px; padding: 16px 10px; }
+}

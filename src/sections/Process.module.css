@@ -1,78 +1,192 @@
 .section {
-  background: var(--ink);
-  padding: 140px 52px;
+  overflow-x: clip;
+  background: var(--black);
+  padding: 140px 48px;
+  position: relative;
+  border-top: 1px solid var(--border);
 }
 
-.sectionLabel {
+.label {
   display: flex;
   justify-content: space-between;
-  font-family: var(--font-body);
+  font-family: var(--ff-body);
   font-size: 10px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.25);
+  color: rgba(240,236,228,0.25);
   margin-bottom: 80px;
 }
 
-.header {
-  margin-bottom: 60px;
-}
-
 .title {
-  font-family: var(--font-display);
-  font-size: clamp(52px, 7vw, 96px);
-  line-height: 0.92;
+  font-family: var(--ff-display);
+  font-size: clamp(64px, 9vw, 128px);
+  line-height: 0.88;
   color: var(--cream);
-  margin: 0;
+  margin-bottom: 80px;
 }
 
-.steps {
-  display: flex;
-  flex-direction: column;
+/* ── Grid: 2 cols desktop, 1 col mobile ─────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
 }
+
+/* Steps */
+.stepsList { display: flex; flex-direction: column; }
 
 .step {
   display: grid;
-  grid-template-columns: 60px 220px 1fr 120px;
+  grid-template-columns: 52px 1fr auto auto;
   align-items: center;
-  gap: 24px;
-  padding: 28px 0;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
   cursor: default;
+  transition: border-color 0.3s;
 }
 
-.step:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
+.stepActive { border-color: rgba(232,24,12,0.35); }
 
-.num {
-  font-family: var(--font-body);
+.stepN {
+  font-family: var(--ff-body);
   font-size: 11px;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.25);
+  color: var(--muted);
+  opacity: 0.35;
+  transition: color 0.2s, opacity 0.2s;
 }
+.stepActive .stepN { color: var(--red); opacity: 1; }
 
-.name {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 2.8vw, 36px);
-  color: var(--cream);
+.stepName {
+  font-family: var(--ff-display);
+  font-size: clamp(24px, 3vw, 40px);
+  color: rgba(240,236,228,0.35);
   margin: 0;
-  letter-spacing: 0.01em;
+  transition: color 0.3s;
 }
+.stepActive .stepName { color: var(--cream); }
 
-.desc {
-  font-family: var(--font-body);
-  font-size: 13px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.35);
-  margin: 0;
-}
-
-.time {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--red);
+.stepTime {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  text-align: right;
+  color: var(--muted);
+  opacity: 0.4;
+  white-space: nowrap;
+  transition: color 0.2s, opacity 0.2s;
+}
+.stepActive .stepTime { opacity: 1; }
+
+/* Mobile chevron — hidden on desktop */
+.chevron {
+  font-size: 20px;
+  color: rgba(240,236,228,0.2);
+  display: none;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.stepActive .chevron { color: var(--red); }
+
+/* Inline detail — hidden on desktop, shown on mobile */
+.inlineDetail { display: none; }
+
+/* ── Detail card (shared styles) ────────────────────────── */
+.detail {
+  position: sticky;
+  top: 100px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px;
+  background: rgba(240,236,228,0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.cardAccent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.cardBigN {
+  font-family: var(--ff-display);
+  font-size: 88px;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.cardName {
+  font-family: var(--ff-display);
+  font-size: 60px;
+  color: var(--cream);
+  line-height: 0.9;
+  margin-bottom: 20px;
+}
+
+.cardDesc {
+  font-family: var(--ff-body);
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(240,236,228,0.45);
+  font-weight: 300;
+}
+
+.cardBottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.cardLine {
+  display: block;
+  width: 28px; height: 1px;
+  flex-shrink: 0;
+}
+
+.cardTime {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  /* Hide sticky desktop panel */
+  .detail { display: none; }
+  /* Show inline mobile detail */
+  .inlineDetail { display: block; }
+  /* Show chevron */
+  .chevron { display: block; }
+  /* Reduce step grid */
+  .step { grid-template-columns: 44px 1fr auto auto; gap: 14px; }
+  .stepName { font-size: clamp(22px, 5vw, 34px); }
+  /* Inline card tweak */
+  .card { border-radius: 14px; padding: 28px; margin: 4px 0 8px; }
+  .cardBigN { font-size: 56px; margin-bottom: 8px; }
+  .cardName  { font-size: 40px; }
+  .cardDesc  { font-size: 16px; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 80px 20px; }
+  .label   { flex-direction: column; gap: 4px; }
+  .title   { font-size: clamp(44px, 12vw, 72px); margin-bottom: 48px; }
+  .step    { grid-template-columns: 32px 1fr auto; gap: 10px; padding: 20px 0; }
+  .stepTag { display: none; }
+  .cardBigN { font-size: 44px; }
+  .cardName { font-size: clamp(28px, 9vw, 40px); }
+  .cardDesc { font-size: 15px; }
 }

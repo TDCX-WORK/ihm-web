@@ -1,73 +1,47 @@
-import { motion } from 'framer-motion'
-import Contact from '../sections/Contact'
+import SplitText    from '../components/SplitText'
+import ScrollReveal from '../components/ScrollReveal'
+import LightOrb     from '../components/LightOrb'
+import Contact      from '../sections/Contact'
 import s from './Nosotros.module.css'
 
+const team = [
+  { name: 'Equipo IHM', role: 'Marketing Strategy', desc: 'Llevamos años viendo cómo las agencias cobran demasiado por hacer demasiado poco. Decidimos que había otra forma.' },
+]
+
 const values = [
-  { num: '01', name: 'Claridad',    desc: 'Sin jerga de agencia. Te decimos lo que va a pasar, cuándo y cuánto cuesta. Sin letra pequeña.' },
-  { num: '02', name: 'Velocidad',   desc: 'De brief a online en días, no en meses. El tiempo de nuestros clientes vale tanto como el nuestro.' },
-  { num: '03', name: 'Criterio',    desc: 'No ejecutamos sin pensar. Cuestionamos, proponemos y empujamos aunque no sea lo más fácil de escuchar.' },
-  { num: '04', name: 'Resultados',  desc: 'Bonito está bien. Que venda está mejor. Todo lo que hacemos tiene un objetivo medible detrás.' },
+  { n: '01', v: 'Honestidad radical',    d: 'Te decimos lo que funciona y lo que no, aunque no sea lo que quieres escuchar.' },
+  { n: '02', v: 'Resultados medibles',   d: 'Todo lo que hacemos tiene un número detrás. Si no se puede medir, no lo hacemos.' },
+  { n: '03', v: 'Velocidad de ejecución',d: 'El mercado no espera. Nosotros tampoco.' },
+  { n: '04', v: 'Sin humo',             d: 'Sin buzzwords, sin presentaciones de 80 slides, sin palabras vacías.' },
 ]
 
 export default function Nosotros() {
   return (
-    <div className={s.page}>
-
-      {/* Hero */}
-      <motion.div
-        className={s.hero}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <p className={s.label}>Nosotros</p>
-        <h1 className={s.title}>
-          Una agencia pequeña<br />
-          <span className={s.titleRed}>con criterio propio.</span>
-        </h1>
-      </motion.div>
-
-      {/* Manifiesto */}
-      <section className={s.manifesto}>
-        <div className={s.manifestoInner}>
-          <p className={s.manifestoLabel}>Por qué existimos</p>
-          <motion.p
-            className={s.manifestoText}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Porque hay demasiadas agencias que cobran mucho,
-            prometen más y{' '}
-            <span className={s.manifestoRed}>entregan poco.</span>{' '}
-            Nosotros hacemos lo contrario.
-          </motion.p>
-        </div>
+    <>
+      <section className={s.hero}>
+        <LightOrb x="65%" y="55%" color="var(--red)" size={600} opacity={0.09} />
+        <ScrollReveal className={s.label}>Nosotros</ScrollReveal>
+        <SplitText text="La agencia que odia el marketing de postureo." tag="h1" className={s.title} stagger={0.04} />
+        <ScrollReveal delay={0.2}>
+          <p className={s.sub}>Somos un equipo pequeño, directo y sin complejos. Hacemos marketing que funciona porque nos importan los resultados más que la imagen.</p>
+        </ScrollReveal>
       </section>
 
-      {/* Valores */}
+      {/* Values */}
       <section className={s.values}>
-        <h2 className={s.valuesTitle}>Cómo pensamos.</h2>
-        <div className={s.valuesGrid}>
+        <ScrollReveal className={s.sectionLabel}>Cómo somos</ScrollReveal>
+        <div className={s.valuesList}>
           {values.map((v, i) => (
-            <motion.div
-              key={v.num}
-              className={s.valueCard}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <p className={s.valueNum}>{v.num}</p>
-              <h3 className={s.valueName}>{v.name}</h3>
-              <p className={s.valueDesc}>{v.desc}</p>
-            </motion.div>
+            <ScrollReveal key={v.n} as="div" delay={i * 0.07} className={s.valueItem}>
+              <span className={s.valueN}>{v.n}</span>
+              <h3 className={s.valueTitle}>{v.v}</h3>
+              <p className={s.valueDesc}>{v.d}</p>
+            </ScrollReveal>
           ))}
         </div>
       </section>
 
       <Contact />
-    </div>
+    </>
   )
 }

@@ -1,117 +1,94 @@
-.page {
-  padding-top: 64px;
-}
-
 .hero {
-  background: var(--cream);
-  padding: 100px 52px 80px;
-  border-bottom: 1px solid rgba(17,17,17,0.06);
+  background: var(--black);
+  padding: 160px 48px 100px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
 }
 
 .label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 16px 0;
+  opacity: 0.45;
+  margin-bottom: 28px;
 }
 
 .title {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 8vw, 110px);
-  line-height: 0.9;
-  color: var(--ink);
-  margin: 0 0 28px 0;
+  font-family: var(--ff-display);
+  font-size: clamp(52px, 7.5vw, 112px);
+  line-height: 0.88;
+  color: var(--cream);
+  margin-bottom: 32px;
+  max-width: 860px;
 }
 
-.titleRed { color: var(--red); }
-
-/* Sección manifiesto */
-.manifesto {
-  background: var(--ink);
-  padding: 100px 52px;
+.sub {
+  font-family: var(--ff-body);
+  font-size: 18px;
+  line-height: 1.78;
+  color: rgba(240,236,228,0.42);
+  max-width: 520px;
+  font-weight: 300;
 }
 
-.manifestoInner {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+/* Values */
+.values {
+  background: var(--deep);
+  padding: 120px 48px;
+  border-top: 1px solid var(--border);
 }
 
-.manifestoLabel {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.16em;
+.sectionLabel {
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin: 0 0 32px 0;
+  color: var(--muted);
+  opacity: 0.4;
+  margin-bottom: 60px;
 }
 
-.manifestoText {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 48px);
-  line-height: 1.15;
+.valuesList { display: flex; flex-direction: column; }
+
+.valueItem {
+  display: grid;
+  grid-template-columns: 52px 260px 1fr;
+  align-items: start;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.valueN {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  opacity: 0.4;
+  padding-top: 4px;
+}
+
+.valueTitle {
+  font-family: var(--ff-display);
+  font-size: 32px;
   color: var(--cream);
   margin: 0;
-}
-
-.manifestoRed { color: var(--red); }
-
-/* Valores */
-.values {
-  background: var(--cream);
-  padding: 100px 52px;
-}
-
-.valuesTitle {
-  font-family: var(--font-display);
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 0.92;
-  color: var(--ink);
-  margin: 0 0 56px 0;
-}
-
-.valuesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  border: 1.5px solid rgba(17,17,17,0.1);
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.valueCard {
-  padding: 40px;
-  border-right: 1.5px solid rgba(17,17,17,0.08);
-  border-bottom: 1.5px solid rgba(17,17,17,0.08);
-  transition: background 0.25s;
-}
-
-.valueCard:nth-child(2n) { border-right: none; }
-.valueCard:nth-child(n+3) { border-bottom: none; }
-
-.valueCard:hover { background: rgba(17,17,17,0.02); }
-
-.valueNum {
-  font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: var(--red);
-  margin: 0 0 16px 0;
-}
-
-.valueName {
-  font-family: var(--font-display);
-  font-size: 28px;
-  color: var(--ink);
-  margin: 0 0 10px 0;
+  line-height: 0.95;
 }
 
 .valueDesc {
-  font-family: var(--font-body);
+  font-family: var(--ff-body);
   font-size: 14px;
-  line-height: 1.7;
-  color: rgba(17,17,17,0.5);
-  margin: 0;
+  line-height: 1.75;
+  color: rgba(240,236,228,0.42);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 100px 20px 60px; }
+  .title { font-size: clamp(38px, 10vw, 64px); }
+  .values { padding: 60px 20px; }
+  .valueItem { grid-template-columns: 36px 1fr; gap: 12px; }
 }

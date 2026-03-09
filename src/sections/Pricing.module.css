@@ -1,187 +1,314 @@
-.section {
-  background: var(--cream);
-  padding: 140px 52px;
+/* ─── Outer scroll container (300vh) — DESKTOP ONLY ─────────── */
+.outerScroll {
+  position: relative;
+  background: var(--deep);
+  border-radius: 48px;
+  margin: 0 8px;
+  clip-path: inset(0 0 0 0 round 48px);
 }
 
-.sectionLabel {
+/* Default: mobile layout visible, sticky hidden */
+.sticky { display: none !important; }
+.mobileLayout { display: block; }
+
+/* Desktop only: show sticky animation, hide mobile layout */
+@media (min-width: 1025px) {
+  .outerScroll { height: 300vh; }
+  .sticky { display: flex !important; }
+  .mobileLayout { display: none !important; }
+}
+
+/* ─── Sticky viewport ───────────────────────────────────────── */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;                          /* fallback */
+  height: calc(var(--vh, 1vh) * 100);    /* iOS frozen */
   display: flex;
-  justify-content: space-between;
-  font-family: var(--font-body);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 80px;
-  opacity: 0.6;
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(52px, 7vw, 96px);
-  line-height: 0.92;
-  color: var(--ink);
-  margin: 0 0 80px 0;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  border: 1px solid rgba(17,17,17,0.08);
-  border-radius: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-.card {
-  padding: 48px 40px;
-  background: var(--cream);
-  border-right: 1px solid rgba(17,17,17,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: background 0.35s;
+/* ─── Header ────────────────────────────────────────────────── */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
   position: relative;
+  z-index: 10;
 }
 
-.card:last-child {
-  border-right: none;
+.label {
+  display: block;
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,236,228,0.28);
+  margin-bottom: 16px;
 }
 
-.cardActive {
-  background: var(--ink);
-}
-
-.cardActive .cardNum,
-.cardActive .planName,
-.cardActive .price,
-.cardActive .priceNote,
-.cardActive .feature {
+.title {
+  font-family: var(--ff-display);
+  font-size: clamp(44px, 6vw, 88px);
+  line-height: 0.92;
   color: var(--cream);
 }
 
-.cardActive .divider {
-  background: rgba(255,255,255,0.1);
+/* ─── Cards stage ───────────────────────────────────────────── */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1600px;
 }
 
-.cardActive .check {
-  color: var(--red);
+/* ─── Desktop card wrapper ──────────────────────────────────── */
+.cardOuter {
+  position: absolute;
+  width: 320px;
+  height: 480px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: pointer;
+}
+
+/* ─── Card face (shared) ─────────────────────────────────────── */
+.cardFace {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 32px;
+}
+
+/* ─── Front face ─────────────────────────────────────────────── */
+.frontN {
+  font-family: var(--ff-body);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.frontMiddle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.frontLabel {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.frontName {
+  font-family: var(--ff-display);
+  font-size: 60px;
+  color: rgba(255,255,255,0.92);
+  line-height: 0.88;
+}
+
+.frontPrice {
+  font-family: var(--ff-display);
+  font-size: 36px;
+  color: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.frontNote {
+  font-family: var(--ff-body);
+  font-size: 13px;
+  opacity: 0.55;
+}
+
+.frontDeco {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0.5;
+}
+
+/* ─── Back face ──────────────────────────────────────────────── */
+.cardBack {
+  background: rgba(18,16,15,0.98);
+  border: 1px solid rgba(240,236,228,0.09);
+  transform: rotateY(180deg);
 }
 
 .badge {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  font-family: var(--font-body);
+  display: inline-block;
+  font-family: var(--ff-body);
   font-size: 9px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   background: var(--red);
   color: #fff;
   padding: 4px 10px;
   border-radius: 999px;
+  margin-bottom: 16px;
+  align-self: flex-start;
 }
 
-.cardTop {
+.backHead {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 32px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-.cardNum {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  transition: color 0.35s;
+.backN {
+  font-family: var(--ff-body);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(240,236,228,0.2);
 }
 
 .planName {
-  font-family: var(--font-display);
-  font-size: 36px;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-  margin: 0;
-  transition: color 0.35s;
+  font-family: var(--ff-display);
+  font-size: 34px;
+  color: var(--cream);
+  line-height: 0.9;
 }
 
 .priceRow {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  margin-bottom: 28px;
+  gap: 5px;
+  margin-bottom: 16px;
 }
 
 .price {
-  font-family: var(--font-display);
+  font-family: var(--ff-display);
   font-size: 42px;
-  color: var(--ink);
-  margin: 0;
-  line-height: 1;
-  transition: color 0.35s;
+  color: var(--cream);
 }
 
 .priceNote {
-  font-family: var(--font-body);
+  font-family: var(--ff-body);
   font-size: 12px;
-  color: var(--muted);
-  margin: 0;
-  transition: color 0.35s;
+  color: rgba(240,236,228,0.35);
 }
 
 .divider {
   height: 1px;
-  background: rgba(17,17,17,0.08);
-  margin-bottom: 28px;
-  transition: background 0.35s;
+  margin-bottom: 18px;
 }
 
 .features {
   list-style: none;
-  margin: 0 0 auto 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
+  margin-bottom: 24px;
+  flex: 1;
 }
 
 .feature {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-body);
+  gap: 9px;
+  font-family: var(--ff-body);
   font-size: 13px;
-  color: rgba(17,17,17,0.6);
-  transition: color 0.35s;
+  color: rgba(240,236,228,0.55);
+  font-weight: 300;
 }
 
 .check {
-  color: var(--red);
-  font-size: 11px;
+  font-size: 10px;
   flex-shrink: 0;
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 36px;
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.12em;
+.cardCta {
+  display: block;
+  text-align: center;
+  font-family: var(--ff-body);
+  font-size: 10px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.ctaActive {
   color: var(--cream);
-  border-color: rgba(255,255,255,0.3);
+  border: 1px solid rgba(240,236,228,0.15);
+  padding: 12px;
+  border-radius: 999px;
+  transition: opacity 0.2s;
+}
+.cardCta:hover { opacity: 0.7; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE LAYOUT
+═══════════════════════════════════════════════════════════════ */
+.mobileLayout {
+  padding: 72px 0 80px;
 }
 
-.cta:hover {
-  border-color: currentColor;
+.mobileHeader {
+  padding: 0 24px;
+  margin-bottom: 48px;
+}
+
+.mobileGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 24px;
+  perspective: 900px;
+  perspective-origin: center top;
+}
+
+.mobileCard {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(240,236,228,0.08);
+}
+
+.mobileCardTop {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.mobilePrice {
+  font-family: var(--ff-display);
+  font-size: 40px;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.mobileBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: var(--ff-body);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.mobileCardBody {
+  padding: 20px 24px 24px;
+  background: rgba(18,16,15,0.98);
 }

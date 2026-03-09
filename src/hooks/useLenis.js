@@ -1,32 +1,42 @@
 import { useEffect } from 'react'
-import Lenis from 'lenis'
-
-let lenisInstance = null
-
-export function getLenis() {
-  return lenisInstance
-}
 
 export default function useLenis() {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true,
-    })
+    // Lenis on mobile causes touch interception issues on iOS Safari
+    // iOS already has native smooth scroll — only activate on desktop
+    if (window.matchMedia('(pointer: coarse)').matches) return
 
-    lenisInstance = lenis
+    let lenis
+    let rafId
 
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
+    const init = () => {
+      import('lenis').then(({ default: Lenis }) => {
+        lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smooth: true,
+          touchMultiplier: 1.5,
+          gestureOrientation: 'vertical',
+          prevent: (node) => node.tagName === 'TEXTAREA',
+        })
+
+        const raf = (time) => {
+          lenis.raf(time)
+          rafId = requestAnimationFrame(raf)
+        }
+        rafId = requestAnimationFrame(raf)
+      }).catch(() => {})
     }
 
-    requestAnimationFrame(raf)
+    if (typeof requestIdleCallback !== 'undefined') {
+      requestIdleCallback(init, { timeout: 500 })
+    } else {
+      setTimeout(init, 100)
+    }
 
     return () => {
-      lenis.destroy()
-      lenisInstance = null
+      if (rafId) cancelAnimationFrame(rafId)
+      lenis?.destroy()
     }
   }, [])
 }

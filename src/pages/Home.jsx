@@ -1,20 +1,30 @@
-import Hero        from '../sections/Hero'
-import Marquee     from '../sections/Marquee'
-import Services    from '../sections/Services'
-import Process     from '../sections/Process'
-import Pricing     from '../sections/Pricing'
-import Testimonials from '../sections/Testimonials'
-import Contact     from '../sections/Contact'
+import Hero          from '../sections/Hero'
+import ClientBar     from '../sections/ClientBar'
+import Services      from '../sections/Services'
+import Manifesto     from '../sections/Manifesto'
+import Process       from '../sections/Process'
+import Testimonials  from '../sections/Testimonials'
+import Pricing       from '../sections/Pricing'
+import Contact       from '../sections/Contact'
+import SectionDivider from '../components/SectionDivider'
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
+      <SectionDivider />
+      <ClientBar />
+      <SectionDivider dim />
       <Services />
+      <SectionDivider dim />
+      <Manifesto />
+      <SectionDivider dim />
       <Process />
-      <Pricing />
+      <SectionDivider />
       <Testimonials />
+      <SectionDivider />
+      <Pricing />
+      <SectionDivider dim />
       <Contact />
     </>
   )
