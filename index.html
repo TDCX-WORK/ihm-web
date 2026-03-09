@@ -3,21 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ihm-web</title>
-    <style>
-      * {
-        touch-action: pan-x pan-y;
-      }
-    </style>
+    <!-- FIX: eliminado maximum-scale=1.0 y user-scalable=no
+         Razón: bloquean el zoom en Android (accesibilidad). En iOS 13+ se ignoran de todas formas.
+         touch-action: manipulation en globals.css previene el doble-tap zoom sin bloquear pinch. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Hate Marqueting</title>
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
-      document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
-      document.addEventListener('gestureend', function(e) { e.preventDefault(); });
-    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
